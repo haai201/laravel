@@ -13,14 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('home');
+});
 // Route::get('/login', 'LoginController@getLogin');
 // Route::post('/login', 'LoginController@getLogin');
 // Route::get('/logout', 'LoginController@getLogout');
 
-Route::get('/', function () {
+Route::get('/home', function () {
     return view('home');
 });
 Route::prefix('categories')->group(function () {
@@ -42,16 +42,25 @@ Route::prefix('categories')->group(function () {
         'uses'=>'CategoryController@store'
         
     ]); 
-    Route::get('/edit', 
+    Route::get('/edit/{id}', 
     [
         'as' =>'categories.edit',
         'uses'=>'CategoryController@edit'
         
     ]); 
-    Route::get('/delete', 
+    Route::get('/delete/{id}', 
     [
         'as' =>'categories.delete',
         'uses'=>'CategoryController@delete'
         
     ]); 
+});
+Route::prefix('menus')->group(function () {
+    Route::get('/', 
+    [
+        'as' =>'menus.index',
+        'uses'=>'MenuController@index'
+        
+    ]); 
+    
 });

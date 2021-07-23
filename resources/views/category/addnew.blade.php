@@ -39,7 +39,7 @@
   {!! $htmlOption !!}
 
 </select><br>
-  <button type="submit" class="btn btn-primary float-right">Submit</button>
+  <button type="submit" class="btn btn-primary float-right">Xác nhận</button>
 </form>
 </div>
           <!-- /.col-md-6 -->
