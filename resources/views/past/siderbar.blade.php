@@ -40,7 +40,7 @@
             <a href=" {{  route('categories.index')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Danh sách sản phẩm
+                Danh mục sản phẩm
             
               </p>
             </a>
@@ -54,7 +54,15 @@
               </p>
             </a>
           </li>
-        
+          <li class="nav-item">
+            <a href=" {{  route('product.index')}}" class="nav-link">
+              <i class="nav-icon fab fa-app-store"></i>
+              <p>
+                Sản phẩm
+            
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
