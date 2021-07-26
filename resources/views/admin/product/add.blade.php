@@ -7,6 +7,11 @@
 @endsection
 @section('css')
 <link href="{{ asset('vendors/select2/select2.min.css')}}" rel="stylesheet" />
+<style>
+  .select2-selection__choice{
+    background-color: #343a40 !important;
+  }
+</style>
 @endsection
 
 
