@@ -6,7 +6,7 @@
 <title>Thêm Sản Phẩm || Nhã Dương</title>
 @endsection
 @section('css')
-<link href="{{ asset('vendor/select2/select2.min.css')}}" rel="stylesheet" />
+<link href="{{ asset('vendors/select2/select2.min.css')}}" rel="stylesheet" />
 @endsection
 
 
@@ -76,7 +76,7 @@
 @endsection
 
 @section('js')
-<script src="{{ asset('vendor/select2/select2.min.js')}}"></script>
+<script src="{{ asset('vendors/select2/select2.min.js')}}"></script>
 <script>
   $(".tags_select_choose").select2({
     tags: true,
