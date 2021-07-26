@@ -4,7 +4,17 @@
       <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
-
+<style>
+  .main-sidebar{
+    background-color:#3b2bb3!important;
+    
+  }
+  .form-control-sidebar {
+    background-color: #fff!important;
+    border: 1px solid #fff!important;
+    color: #9966FF!important;
+}
+</style>
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
