@@ -3,3 +3,6 @@ xammp 8.0.8 / PHP 8.0.8 ms có thể chạy web đc
 laravel 7.x
 
 reset id mysql serve ALTER TABLE tablename(tên bảng) AUTO_INCREMENT = 1
+
+
+pass $2y$10$.0D3pMPn1/VYn6nlciHoceevVFlVP1yN6q/2YSn9aRc2hz2vs.1x.
