@@ -6,7 +6,7 @@
     </a>
 <style>
   .main-sidebar{
-    background-color:#3b2bb3!important;
+    background-color:#3b5988!important;
     
   }
   .form-control-sidebar {
@@ -23,7 +23,7 @@
           <img src="{{asset('adminlte/dist/img/user2-160x160.jpg')}} " class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">Dương Văn Nhã</a>
         </div>
       </div>
 

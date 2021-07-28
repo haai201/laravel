@@ -20,7 +20,7 @@ class AdminController extends Controller
         if(auth()->attempt([
             'email' =>$request->email,
             'password' =>$request->password
-        ], $remember));{
+        ], $remember)){
             return redirect()->to(path:'home');
         }
     }

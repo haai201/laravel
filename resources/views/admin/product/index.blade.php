@@ -4,7 +4,13 @@
 @section('title')
 <title>Sản phẩm || Nhã Dương</title>
 @endsection
-
+@section('css')
+<link rel="stylesheet" href="{{asset('admins/product/index/list.css')}}">
+@endsection
+@section('js')
+<script src="{{asset('admins/product/index/list.js')}}"></script>
+<script src="{{asset('vendors/sweetalert2/sweetalert2@11.js')}}"></script>
+@endsection
 @section('content')
 <div class="content-wrapper">
 
@@ -31,23 +37,26 @@
     </tr>
   </thead>
   <tbody>
+@foreach($products as $productItem)
 
     <tr>
-      <th scope="row">1</th>
-      <td>Laptop Msi GF63</td>
-      <td>21.900.000</td>
-      <td><img src="" alt=""></td>
-      <td>Laptop</td>
+      <th scope="row"> {{$productItem-> id}}</th>
+      <td> {{$productItem-> name}} </td>
+      <td> {{number_format($productItem-> price)}}  VNĐ</td>
       <td>
-        <a href=""class="btn btn-warning">Edit</a>
-          <a href="" class="btn btn-danger">Delete</a>
+      <img class="product_image" src="{{$productItem-> feature_image_path}}"  >
+      </td>
+      <td>{{optional($productItem->category)->name}} </td>
+      <td>
+        <a href="{{ route('product.edit', ['id' => $productItem->id])}}"class="btn btn-warning">Edit</a>
+          <a href="" data-url="{{route('product.delete',['id' => $productItem->id])}}" class="btn btn-danger action_delete">Delete</a>
       </td>
     </tr>
- 
+ @endforeach
   </tbody>
 </table>
 <div class="col-sm-12">
-
+{{$products->links()}}
 </div>
 </div>
           <!-- /.col-md-6 -->
