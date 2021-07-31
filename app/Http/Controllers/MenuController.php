@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Components\MenuRecusive;
+use App\Traits\DeleteModelTrait;
 use App\Menu;
 
 class MenuController extends Controller
 {
+    use DeleteModelTrait;
     private $menuRecusive;
     private $menu;
     public function __construct(MenuRecusive $menuRecusive, Menu $menu){
@@ -19,7 +21,7 @@ class MenuController extends Controller
     }
     public function create(){
         $optionSelect= $this->menuRecusive->menuRecusiveAdd();
-        return view('admin.menus.addnew',compact('optionSelect'));
+        return view('admin.menus.add',compact('optionSelect'));
         
     }
     public function store(Request $request){
@@ -45,8 +47,6 @@ class MenuController extends Controller
        return redirect()->route('menus.index');
    }
    public function delete($id){
-    $this->menu->find($id)->delete();
-
-    return redirect()->route('menus.index');
+    return $this->deleteModelTrait($id, $this->menu);
 }
 }

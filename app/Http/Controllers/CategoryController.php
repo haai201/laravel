@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Components\Recusive;
+use App\Traits\DeleteModelTrait;
 
 
 class CategoryController extends Controller
 {
-
+    use DeleteModelTrait;
     private $category;
     
     public function __construct(Category $category){
@@ -18,7 +19,7 @@ class CategoryController extends Controller
     }
     public function create(){
         $htmlOption = $this->getCategory($parentId = '');
-        return view('admin.category.addnew', compact('htmlOption'));
+        return view('admin.category.add', compact('htmlOption'));
 
      }
 
@@ -56,7 +57,6 @@ class CategoryController extends Controller
         return $htmlOption;
     }
     public function delete($id){
-        $this->category->find($id)->delete();
-        return redirect()->route('categories.index');
+        return $this->deleteModelTrait($id, $this->category);
     }
 }

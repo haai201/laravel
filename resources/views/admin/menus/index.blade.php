@@ -4,7 +4,10 @@
 @section('title')
 <title>Trang chủ || Nhã Dương</title>
 @endsection
-
+@section('js')
+<script src="{{asset('admins/menu/index/list.js')}}"></script>
+<script src="{{asset('vendors/sweetalert2/sweetalert2@11.js')}}"></script>
+@endsection
 @section('content')
 <div class="content-wrapper">
 
@@ -33,7 +36,7 @@
       <td>{{ $menu -> name}}</td>
       <td>
         <a href="{{route ('menus.edit', ['id' => $menu->id])}}"class="btn btn-warning">Edit</a>
-          <a href="{{route ('menus.delete',['id' => $menu->id])}}" class="btn btn-danger">Delete</a>
+          <a href="" data-url="{{route('menus.delete',['id' => $menu->id])}}" class="btn btn-danger action_delete">Delete</a>
       </td>
     </tr>
     @endforeach

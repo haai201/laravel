@@ -7,17 +7,13 @@
 @endsection
 @section('css')
 <link href="{{ asset('vendors/select2/select2.min.css')}}" rel="stylesheet" />
-<style>
-  .select2-selection__choice{
-    background-color: #343a40 !important;
-  }
-</style>
 @endsection
 
 
 @section('content')
 <div class="content-wrapper">
       @include('past.content-header', ['name' => 'Product', 'key' => 'Add'])
+    
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
@@ -29,13 +25,19 @@
   <div class="form-group">
     <label>Tên sản phẩm
     </label>
-    <input type="text" class="form-control" name="name" placeholder="Nhập tên sản phẩm">
+    <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Nhập tên sản phẩm" value="{{old('name')}}">
+    @error('name')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
     
   </div>
   <div class="form-group">
     <label>Giá sản phẩm
     </label>
-    <input type="text" class="form-control" name="price" placeholder="Nhập giá sản phẩm">
+    <input type="number" class="form-control @error('price') is-invalid @enderror" name="price" placeholder="Nhập giá sản phẩm" value="{{old('price')}}">
+    @error('price')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
     
   </div>
   <div class="form-group">
@@ -53,21 +55,27 @@
 
   <div class="form-group">
   <label>Chọn danh mục</label>
-  <select class="form-control select2_init " name="category_id" >
+  <select class="form-control select2_init @error('category_id') is-invalid @enderror" name="category_id" value="{{old('category_id')}}">
   <option value="">Chọn danh mục</option>
   {{!!$htmlOption!!}}
 
 </select>
+@error('category_id')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
 </div>
 <div class="form-group">
 <label>Nhập tag cho sản phẩm</label>
-<select name="tags[]" class="form-control tags_select_choose" multiple="multiple">
+<select name="tags[]" class="form-control tags_select_choose" multiple="multiple" value="{{old('tag')}}">
 </select>
 </div>
         </div>
         <div class="form-group col-md-12">
     <label >Nhập nội dung</label>
-    <textarea name="contents" class="form-control tinymce_editor_init"></textarea>
+    <textarea name="contents" class="form-control tinymce_editor_init @error('contents') is-invalid @enderror" > {{old('contents')}}</textarea>
+    @error('contents')
+    <div class="alert alert-danger">{{ $message }}</div>
+@enderror
   </div>
   <div class="form-group col-md-12">
   <button type="submit" class="btn btn-primary float-right">Xác nhận</button></div>

@@ -4,7 +4,10 @@
 @section('title')
 <title>Trang chủ || Nhã Dương</title>
 @endsection
-
+@section('js')
+<script src="{{asset('admins/category/index/list.js')}}"></script>
+<script src="{{asset('vendors/sweetalert2/sweetalert2@11.js')}}"></script>
+@endsection
 @section('content')
 <div class="content-wrapper">
 
@@ -34,7 +37,7 @@
       <!-- <td>{{ $category -> slug}}</td> -->
       <td>
         <a href="{{route ('categories.edit', ['id' => $category->id])}}"class="btn btn-warning">Edit</a>
-          <a href="{{route ('categories.delete',['id' => $category->id])}}" class="btn btn-danger">Delete</a>
+          <a href="" data-url="{{route('categories.delete',['id' => $category->id])}}" class="btn btn-danger action_delete">Delete</a>
       </td>
     </tr>
     @endforeach

@@ -3,8 +3,8 @@ function actionDelete(event) {
     let urlRequest = $(this).data('url');
     let that = $(this);
     Swal.fire({
-        title: 'Bạn chắc chắn muốn xóa sản phẩm này chứ?',
-        // text: "Thao tác không thể hoàn tác!",
+        title: 'Bạn chắc chắn muốn xóa slider này chứ?',
+        text: "Thao tác không thể hoàn tác!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -20,7 +20,7 @@ function actionDelete(event) {
                         that.parent().parent().remove();
                         Swal.fire(
                             'Thành công!',
-                            'Sản phẩm đã được xóa thành công.',
+                            'Slider đã được xóa thành công.',
                             'success'
                         )
                     }

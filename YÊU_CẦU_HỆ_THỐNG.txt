@@ -6,3 +6,10 @@ reset id mysql serve ALTER TABLE tablename(tên bảng) AUTO_INCREMENT = 1
 
 
 pass $2y$10$.0D3pMPn1/VYn6nlciHoceevVFlVP1yN6q/2YSn9aRc2hz2vs.1x.
+
+
+config composer platform để cài auth
+composer config platform.php 7.4.3
+
+
+color slider-bar:#5a6edf

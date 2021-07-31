@@ -23,7 +23,7 @@ public function storageTraitUploadMultiple($file, $foderName){
     $filePath = $file->storeAs('public/'. $foderName. '/'.auth()->id() ,$fileNameHash);
     $dataUploadTrait =[
         'file_name'=>$fileNameOrigin,
-        'file_path'=>Storage::url($filePath)          
+        'file_path'=>Storage::url($filePath) ,         
     ];
     return $dataUploadTrait;
 }

@@ -17,7 +17,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-6">
-          <form action="{{ route('product.update', ['id'=>$product->id]) }}" method="post"" enctype=" multipart/form-data">
+          <form action="{{ route('product.update', ['id'=>$product->id]) }}" method="post" enctype=" multipart/form-data">
             @csrf
             <div class="form-group">
               <label>Tên sản phẩm</label>

@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Product;
 use App\ProductTag;
+use App\Http\Requests\ProductAddRequest;
 use App\Tag;
 use App\ProductImage;
 use App\Components\Recusive;
 use Illuminate\Http\Request;
 use App\Traits\StorageImageTrait;
+use App\Traits\DeleteModelTrait;
 use Illuminate\Support\Facades\Log;
 use Storage;
 use DB;
@@ -17,7 +19,7 @@ use DB;
 
 class AdminProductController extends Controller
 {
-    use StorageImageTrait;
+    use DeleteModelTrait ,StorageImageTrait;
     private $category;
     private $product;
     private $tag;
@@ -48,7 +50,7 @@ class AdminProductController extends Controller
         $htmlOption = $recusive->categoryRecusive($parentId);
         return $htmlOption;
     }
-    public function store(Request $request)
+    public function store(ProductAddRequest $request)
     {
         try {
             DB::beginTransaction();
@@ -99,7 +101,7 @@ class AdminProductController extends Controller
         $htmlOption = $this->getCategory($product->category_id);
         return view('admin.product.edit', compact('htmlOption', 'product'));
     }
-    public function update($id , Request $request)
+    public function update(Request $request ,$id)
         {
             try {
                 DB::beginTransaction();
@@ -147,19 +149,6 @@ class AdminProductController extends Controller
             }
         }
         public function delete($id){
-            try {
-                $this->product->find($id)->delete();
-                return response()->json([
-                    'code' =>200,
-                    'message' =>'success'
-                ], status: 200);
-            }catch (\Exceptions $exception) {
-                Log::error(message: 'Messeage:' . $exception->getMessage() . '----Line :' . $exception->getLine());
-                return response()->json([
-                    'code' =>500,
-                    'message' =>'fail'
-                ], status: 500);
-            }
-        }
+            return $this->deleteModelTrait($id, $this->product);
     }
-
+}
