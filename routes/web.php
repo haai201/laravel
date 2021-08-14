@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/admin', 'AdminController@loginAdmin');
 Route::post('/admin', 'AdminController@postloginAdmin');
-Route::get('/home', function () {
-    return view('home');
-});
+// Route::get('/home', function () {
+//     return view('home');
+// });
 
 Route::prefix('admin')->group(function () {
     //Danh mục sản phẩm
@@ -224,3 +224,11 @@ Route::prefix('admin')->group(function () {
 
 
     
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');

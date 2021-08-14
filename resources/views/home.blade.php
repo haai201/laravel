@@ -1,4 +1,4 @@
-@extends('layout.admin')
+<!-- @extends('layout.admin')
 
 @section('title')
 <title>Trang chủ || Nhã Dương</title>
