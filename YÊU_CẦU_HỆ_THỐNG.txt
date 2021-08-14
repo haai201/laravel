@@ -13,3 +13,7 @@ composer config platform.php 7.4.3
 
 
 color slider-bar:#5a6edf
+
+
+
+lỗi ko nhìn thấy ảnh :" php artisan storage:link"
