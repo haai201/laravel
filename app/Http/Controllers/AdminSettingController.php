@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Http\Requests\SettingAddRequest;
 use App\Traits\DeleteModelTrait;
+use Illuminate\Support\Facades\Auth;
 use App\Setting;
 
 use Illuminate\Http\Request;
@@ -13,10 +14,15 @@ class AdminSettingController extends Controller
     private $setting;
     public function __construct(Setting $setting){
         $this->setting = $setting;
+        $this->middleware('auth');
     }
     public function index(){
-        $settings = $this->setting->latest()->paginate(5);
+        if (Auth::check()) {
+            // The user is logged in...
+            $settings = $this->setting->latest()->paginate(5);
         return view('admin.setting.index',compact('settings'));
+        }
+        
     }
     public function create(){
         return view('admin.setting.add');

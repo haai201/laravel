@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SliderAddRequest;
 use App\Traits\StorageImageTrait;
 use App\Traits\DeleteModelTrait;
+use Illuminate\Support\Facades\Auth;
 use App\Slider;
 
 class SliderAdminController extends Controller
@@ -15,11 +16,16 @@ class SliderAdminController extends Controller
     public function __construct(Slider $slider)
     {
         $this->slider = $slider;
+        $this->middleware('auth');
     }
     public function index()
     {
-        $sliders=$this->slider->latest()->paginate(5);
+        if (Auth::check()) {
+            $sliders=$this->slider->latest()->paginate(5);
         return view('admin.slider.index',compact('sliders'));
+            // The user is logged in...
+        }
+        
     }
     public function create()
     {

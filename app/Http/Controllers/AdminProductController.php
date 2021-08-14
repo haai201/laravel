@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Traits\StorageImageTrait;
 use App\Traits\DeleteModelTrait;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Storage;
 use DB;
 
@@ -32,11 +33,16 @@ class AdminProductController extends Controller
         $this->productImage = $productImage;
         $this->tag = $tag;
         $this->productTag = $productTag;
+        $this->middleware('auth');
     }
     public function index()
     {
-        $products = $this->product->latest()->paginate(5);
+        if (Auth::check()) {
+            // The user is logged in...
+            $products = $this->product->latest()->paginate(5);
         return view('admin.product.index', compact('products'));
+        }
+        
     }
     public function create()
     {

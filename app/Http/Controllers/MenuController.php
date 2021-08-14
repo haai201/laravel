@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Components\MenuRecusive;
 use App\Traits\DeleteModelTrait;
+use Illuminate\Support\Facades\Auth;
 use App\Menu;
 
 class MenuController extends Controller
@@ -14,10 +15,15 @@ class MenuController extends Controller
     public function __construct(MenuRecusive $menuRecusive, Menu $menu){
         $this->menuRecusive=$menuRecusive;
         $this->menu=$menu;
+        $this->middleware('auth');
     }
     public function index(){
-        $menus = $this-> menu ->latest()-> paginate(5);
-        return view('admin.menus.index', compact('menus'));
+        if (Auth::check()) {
+            $menus = $this-> menu ->latest()-> paginate(5);
+            return view('admin.menus.index', compact('menus'));
+        }else{
+        }
+       
     }
     public function create(){
         $optionSelect= $this->menuRecusive->menuRecusiveAdd();

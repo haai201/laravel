@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Components\Recusive;
+use Illuminate\Support\Facades\Auth;
 use App\Traits\DeleteModelTrait;
 
 
@@ -16,6 +17,7 @@ class CategoryController extends Controller
     public function __construct(Category $category){
         
         $this->category = $category;
+        $this->middleware('auth');
     }
     public function create(){
         $htmlOption = $this->getCategory($parentId = '');
@@ -24,8 +26,12 @@ class CategoryController extends Controller
      }
 
     public function index(){
-        $categories=$this->category->latest()->paginate(5);
+        if (Auth::check()) {
+            // The user is logged in...
+            $categories=$this->category->latest()->paginate(5);
         return view('admin.category.index', compact('categories'));
+        }
+        
     }
     public function store(Request $request){
         $this->category->create([
