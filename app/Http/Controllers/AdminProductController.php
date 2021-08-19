@@ -8,6 +8,7 @@ use App\ProductTag;
 use App\Http\Requests\ProductAddRequest;
 use App\Tag;
 use App\ProductImage;
+use Alert;
 use App\Components\Recusive;
 use Illuminate\Http\Request;
 use App\Traits\StorageImageTrait;
@@ -40,7 +41,10 @@ class AdminProductController extends Controller
         if (Auth::check()) {
             // The user is logged in...
             $products = $this->product->latest()->paginate(5);
-        return view('admin.product.index', compact('products'));
+            if (session('success_message')) {
+                Alert::success('Thành Công', session('success_message'));
+            }
+        return view('admin.product.index', compact('products'))->withSuccessMessage('Bạn đã tạo mới thành công');
         }
         
     }
@@ -95,7 +99,7 @@ class AdminProductController extends Controller
             }
             $product->tags()->attach($tagIds);
             DB::commit();
-            return redirect()->route('product.index');
+            return redirect()->route('product.index')->withSuccessMessage('Bạn đã tạo mới thành công');
         } catch (\Exceptions $exception) {
             DB::rollBack();
             Log::error(message: 'Messeage:' . $exception->getMessage() . '----Line :' . $exception->getLine());
@@ -148,7 +152,7 @@ class AdminProductController extends Controller
                 }
                 $product->tags()->attach($tagIds);
                 DB::commit();
-                return redirect()->route('product.index');
+                return redirect()->route('product.index')->withSuccessMessage('Bạn đã cập nhật thành công');
             } catch (\Exceptions $exception) {
                 DB::rollBack();
                 Log::error(message: 'Messeage:' . $exception->getMessage() . '----Line :' . $exception->getLine());

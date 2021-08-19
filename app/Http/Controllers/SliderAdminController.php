@@ -7,6 +7,7 @@ use App\Http\Requests\SliderAddRequest;
 use App\Traits\StorageImageTrait;
 use App\Traits\DeleteModelTrait;
 use Illuminate\Support\Facades\Auth;
+Use Alert;
 use App\Slider;
 
 class SliderAdminController extends Controller
@@ -22,7 +23,10 @@ class SliderAdminController extends Controller
     {
         if (Auth::check()) {
             $sliders=$this->slider->latest()->paginate(5);
-        return view('admin.slider.index',compact('sliders'));
+            if (session('success_message')) {
+                Alert::success('Thành Công', session('success_message'));
+            }
+        return view('admin.slider.index',compact('sliders'))->withSuccessMessage('Bạn đã tạo mới thành công');
             // The user is logged in...
         }
         
@@ -65,7 +69,7 @@ class SliderAdminController extends Controller
             $dataUpdate['image_path'] = $dataImageSlider['file_path'];
         }
         $this->slider->find($id)->update($dataUpdate);
-        return redirect()->route('slider.index');
+        return redirect()->route('slider.index')->withSuccessMessage('Bạn đã cập nhật thành công');
     }catch(\Exceptions $exception){
         Log::error(message: 'Lỗi:' . $exception->getMessage() . '----Line :' . $exception->getLine());
     }

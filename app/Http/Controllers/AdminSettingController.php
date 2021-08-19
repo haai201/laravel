@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SettingAddRequest;
 use App\Traits\DeleteModelTrait;
 use Illuminate\Support\Facades\Auth;
+Use Alert;
 use App\Setting;
 
 use Illuminate\Http\Request;
@@ -20,7 +21,10 @@ class AdminSettingController extends Controller
         if (Auth::check()) {
             // The user is logged in...
             $settings = $this->setting->latest()->paginate(5);
-        return view('admin.setting.index',compact('settings'));
+            if (session('success_message')) {
+                Alert::success('Thành Công', session('success_message'));
+            }
+        return view('admin.setting.index',compact('settings'))->withSuccessMessage('Bạn đã tạo mới thành công');
         }
         
     }
@@ -44,7 +48,7 @@ class AdminSettingController extends Controller
             'config_key' => $request->config_key,
             'config_value'=> $request->config_value
         ]);
-        return redirect()->route('settings.index');
+        return redirect()->route('settings.index')->withSuccessMessage('Bạn đã cập nhật thành công');
     }
     public function delete($id){
        return $this->deleteModelTrait($id, $this->setting);

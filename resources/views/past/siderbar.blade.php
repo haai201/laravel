@@ -14,6 +14,9 @@
     border: 1px solid #fff!important;
     color: #9966FF!important;
 }
+.d-block {
+  text-transform: uppercase;
+}
 </style>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -23,12 +26,12 @@
           <img src="{{asset('adminlte/dist/img/user2-160x160.jpg')}} " class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Dương Văn Nhã</a>
+          <a href="{{  route('home')}}" class="d-block">  {{ Auth::user()->  name }}</a>
         </div>
       </div>
 
       <!-- SidebarSearch Form -->
-      <div class="form-inline">
+      <div class="form-inline ">
         <div class="input-group" data-widget="sidebar-search">
           <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
@@ -45,7 +48,15 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
+          <li class="nav-item">
+            <a href=" {{  route('home')}}" class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Trang chủ
             
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href=" {{  route('categories.index')}}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
@@ -94,6 +105,22 @@
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Danh sách nhân viên
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href=" {{  route('roles.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Danh sách vai trò
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('permission.create')}}" class="nav-link">
+              <p>
+                Tạo dữ liệu bảng Permission
+            
               </p>
             </a>
           </li>

@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="{{asset('admins/slider/add/add.css')}}">
 @endsection
 @section('js')
-<script src="{{asset('admins/slider/index/list.js')}}"></script>
+<script src="{{asset('admins/user/index/list.js')}}"></script>
 <script src="{{asset('vendors/sweetalert2/sweetalert2@11.js')}}"></script>
 @endsection
 @section('content')
@@ -22,7 +22,7 @@
         <div class="col-sm-12">
           
         <a href="{{route ('users.create')}}" class="btn btn-success float-right m-2">Add</a>
-      
+        @include('sweetalert::alert')
         <table class="table">
   <thead>
 
@@ -41,7 +41,7 @@
       <td>{{ $user -> email}}</td>
       <td>
         <a href=" {{route('users.edit',['id' => $user->id])}}" class="btn btn-warning">Edit</a>
-          <a href="" data-url="" class="btn btn-danger action_delete">Delete</a>
+          <a href="" data-url="{{route('users.delete',['id' => $user->id])}}" class="btn btn-danger action_delete">Delete</a>
       </td>
     </tr>
    @endforeach

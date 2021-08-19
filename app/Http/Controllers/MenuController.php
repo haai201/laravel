@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Components\MenuRecusive;
 use App\Traits\DeleteModelTrait;
 use Illuminate\Support\Facades\Auth;
+Use Alert;
 use App\Menu;
 
 class MenuController extends Controller
@@ -20,7 +21,10 @@ class MenuController extends Controller
     public function index(){
         if (Auth::check()) {
             $menus = $this-> menu ->latest()-> paginate(5);
-            return view('admin.menus.index', compact('menus'));
+            if (session('success_message')) {
+                Alert::success('Thành Công', session('success_message'));
+            }
+            return view('admin.menus.index', compact('menus'))->withSuccessMessage('Bạn đã tạo mới thành công');
         }else{
         }
        
@@ -36,7 +40,7 @@ class MenuController extends Controller
         'parent_id'=>$request->parent_id,
         'slug'=>$request->name
         ]);
-        return redirect()->route('menus.index');
+        return redirect()->route('menus.index')->withSuccessMessage('Bạn đã tạo mới thành công');
     }
     public function edit($id, Request $request){
         $menuFollowEdit = $this->menu->find($id);
@@ -50,7 +54,7 @@ class MenuController extends Controller
            'slug'=> $request->name
            ]);
 
-       return redirect()->route('menus.index');
+       return redirect()->route('menus.index')->withSuccessMessage('Bạn đã cập nhật thành công');
    }
    public function delete($id){
     return $this->deleteModelTrait($id, $this->menu);

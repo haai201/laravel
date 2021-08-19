@@ -5,7 +5,7 @@
 <title>Trang chủ || Nhã Dương</title>
 @endsection
 @section('js')
-<script src="{{asset('admins/menu/index/list.js')}}"></script>
+<script src="{{asset('admins/admin/index/list.js')}}"></script>
 <script src="{{asset('vendors/sweetalert2/sweetalert2@11.js')}}"></script>
 @endsection
 @section('content')
@@ -17,9 +17,9 @@
       <div class="container-fluid">
         <div class="row">
         <div class="col-sm-12">
-          
-        <a href="{{route ('menus.create')}}" class="btn btn-success float-right m-2">Add</a>
-      
+        @can('menu-add')
+        <a href="{{route ('menus.create')}}" class="btn btn-success float-right m-2">Add</a>@endcan
+        @include('sweetalert::alert')
         <table class="table">
   <thead>
 
@@ -35,8 +35,10 @@
       <th scope="row">{{ $menu -> id}}</th>
       <td>{{ $menu -> name}}</td>
       <td>
-        <a href="{{route ('menus.edit', ['id' => $menu->id])}}"class="btn btn-warning">Edit</a>
-          <a href="" data-url="{{route('menus.delete',['id' => $menu->id])}}" class="btn btn-danger action_delete">Delete</a>
+      @can('menu-edit')
+        <a href="{{route ('menus.edit', ['id' => $menu->id])}}"class="btn btn-warning">Edit</a>@endcan
+        @can('menu-delete')
+          <a href="" data-url="{{route('menus.delete',['id' => $menu->id])}}" class="btn btn-danger action_delete">Delete</a>@endcan
       </td>
     </tr>
     @endforeach

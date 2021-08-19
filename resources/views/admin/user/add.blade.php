@@ -53,7 +53,7 @@
   </div>
   <div class="form-group">
     <label>Mật khẩu</label>
-    <input type="text" class="form-control @error('name') is-invalid @enderror" name="password"  placeholder="Nhập mật khẩu">
+    <input type="password" class="form-control @error('name') is-invalid @enderror" name="password"  placeholder="Nhập mật khẩu">
     @error('password')
     <div class="alert alert-danger">{{ $message }}</div>
 @enderror

@@ -7,6 +7,8 @@ use App\Category;
 use App\Components\Recusive;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\DeleteModelTrait;
+use Alert;
+use DB;
 
 
 class CategoryController extends Controller
@@ -29,17 +31,27 @@ class CategoryController extends Controller
         if (Auth::check()) {
             // The user is logged in...
             $categories=$this->category->latest()->paginate(5);
+            if (session('success_message')) {
+                Alert::success('Thành Công', session('success_message'));
+            }
         return view('admin.category.index', compact('categories'));
         }
         
     }
     public function store(Request $request){
+        try {
+            DB::beginTransaction();
         $this->category->create([
         'name'=>$request->name,
         'parent_id'=>$request->parent_id,
         'slug'=> $request->name
         ]);
-        return redirect()->route('categories.index');
+        DB::commit();
+        return redirect()->route('categories.index')->withSuccessMessage('Bạn đã tạo mới thành công');
+    } catch (\Exceptions $exception) {
+        DB::rollBack();
+        Log::error(message: 'Messeage:' . $exception->getMessage() . '----Line :' . $exception->getLine());
+    }
     }
 
     public function edit($id){
@@ -53,8 +65,11 @@ class CategoryController extends Controller
             'parent_id'=>$request->parent_id,
             'slug'=> $request->name
             ]);
+            if (session('success_message')) {
+                Alert::success('Thành Công', session('success_message'));
+            }
 
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.index')->withSuccessMessage('Bạn đã cập nhật thành công');
     }
     public function getCategory($parentId){
         $data = $this->category->all();

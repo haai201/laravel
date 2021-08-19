@@ -11,7 +11,7 @@
   }
 </style>
 @section('js')
-<script src="{{asset('admins/setting/index/list.js')}}"></script>
+<script src="{{asset('admins/admin/index/list.js')}}"></script>
 <script src="{{asset('vendors/sweetalert2/sweetalert2@11.js')}}"></script>
 @endsection
 @section('content')
@@ -25,17 +25,18 @@
         <div class="col-sm-12">
           <!-- Example single danger button -->
 <div class="btn-group float-right">
+@can('setting-add')
   <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Add Setting
   </button></br>
   <div class="dropdown-menu">
     <a class="dropdown-item" href="{{route('settings.create'). '?type=Text'}}">Text</a>
-    <a class="dropdown-item" href="{{route('settings.create'). '?type=Textarea'}}">Textarea</a>
+    <a class="dropdown-item" href="{{route('settings.create'). '?type=Textarea'}}">Textarea</a>@endcan
     <!-- <div class="dropdown-divider"></div>
     <a class="dropdown-item" href="#">Separated link</a> -->
   </div>
 </div>
-      
+@include('sweetalert::alert')
         <table class="table">
   <thead>
 
@@ -53,8 +54,10 @@
       <td>{{$setting->config_key}}</td>
       <td>{{$setting->config_value}}</td>
       <td>
-        <a href="{{ route('settings.edit', ['id' => $setting->id]) .'?type='.$setting->type}}"class="btn btn-warning">Edit</a>
-          <a href="" data-url="{{route('settings.delete',['id' => $setting->id])}}" class="btn btn-danger action_delete">Delete</a>
+      @can('setting-edit')
+        <a href="{{ route('settings.edit', ['id' => $setting->id]) .'?type='.$setting->type}}"class="btn btn-warning">Edit</a>@endcan
+        @can('setting-delete')
+          <a href="" data-url="{{route('settings.delete',['id' => $setting->id])}}" class="btn btn-danger action_delete">Delete</a>@endcan
       </td>
     </tr>
    @endforeach
