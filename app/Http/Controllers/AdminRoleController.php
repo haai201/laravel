@@ -47,6 +47,7 @@ class AdminRoleController extends Controller
         ]);
             $role->permissions()->attach($request->permission_id);
             DB::commit();
+            Alert::success('Thành Công', 'Bạn đã tạo mới thành công!');
             return redirect()->route('roles.index');
         } catch (\Exceptions $exception) {
             DB::rollBack();
@@ -71,7 +72,8 @@ class AdminRoleController extends Controller
         
             $role->permissions()->sync($request->permission_id);
             DB::commit();
-            return redirect()->route('roles.index')->withSuccessMessage('Bạn đã cập nhật thành công');
+            Alert::warning('Thành Công', 'Bạn đã cập nhật thành công!');
+            return redirect()->route('roles.index');
         } catch (\Exceptions $exception) {
             DB::rollBack();
             Log::error(message: 'Messeage:' . $exception->getMessage() . '----Line :' . $exception->getLine());

@@ -21,10 +21,8 @@ class MenuController extends Controller
     public function index(){
         if (Auth::check()) {
             $menus = $this-> menu ->latest()-> paginate(5);
-            if (session('success_message')) {
-                Alert::success('Thành Công', session('success_message'));
-            }
-            return view('admin.menus.index', compact('menus'))->withSuccessMessage('Bạn đã tạo mới thành công');
+        
+            return view('admin.menus.index', compact('menus'));
         }else{
         }
        
@@ -40,7 +38,8 @@ class MenuController extends Controller
         'parent_id'=>$request->parent_id,
         'slug'=>$request->name
         ]);
-        return redirect()->route('menus.index')->withSuccessMessage('Bạn đã tạo mới thành công');
+        Alert::success('Thành Công', 'Bạn đã tạo mới thành công!');
+        return redirect()->route('menus.index');
     }
     public function edit($id, Request $request){
         $menuFollowEdit = $this->menu->find($id);
@@ -53,8 +52,8 @@ class MenuController extends Controller
            'parent_id'=>$request->parent_id,
            'slug'=> $request->name
            ]);
-
-       return redirect()->route('menus.index')->withSuccessMessage('Bạn đã cập nhật thành công');
+           Alert::warning('Thành Công', 'Bạn đã cập nhật thành công!');
+       return redirect()->route('menus.index');
    }
    public function delete($id){
     return $this->deleteModelTrait($id, $this->menu);

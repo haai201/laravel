@@ -43,7 +43,7 @@
     <div class="col-md-12">
     <div class="card-header text-success">
           <label>
-            <input type="checkbox" id="select_all"> Chọn tất cả
+            <input type="checkbox" class="checkall"> Chọn tất cả
           </label>
         </div>
         </div>
@@ -52,7 +52,7 @@
     <div class="card-body text-dark col-md-3">
     <h5 class="card-title">  
             <label>
-                <input type="checkbox" value="{{$moduleItemChildren}}" id='check_all' name="module_children[]"  value='' > {{$moduleItemChildren}}
+                <input type="checkbox" value="{{$moduleItemChildren}}" class="checkbox_childrent"  name="module_children[]"  value='' > {{$moduleItemChildren}}
             </label>
         </div>
         @endforeach

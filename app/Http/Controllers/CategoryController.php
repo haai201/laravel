@@ -31,9 +31,6 @@ class CategoryController extends Controller
         if (Auth::check()) {
             // The user is logged in...
             $categories=$this->category->latest()->paginate(5);
-            if (session('success_message')) {
-                Alert::success('Thành Công', session('success_message'));
-            }
         return view('admin.category.index', compact('categories'));
         }
         
@@ -47,7 +44,8 @@ class CategoryController extends Controller
         'slug'=> $request->name
         ]);
         DB::commit();
-        return redirect()->route('categories.index')->withSuccessMessage('Bạn đã tạo mới thành công');
+        Alert::success('Thành Công', 'Bạn đã tạo mới thành công!');
+        return redirect()->route('categories.index');
     } catch (\Exceptions $exception) {
         DB::rollBack();
         Log::error(message: 'Messeage:' . $exception->getMessage() . '----Line :' . $exception->getLine());
@@ -65,11 +63,9 @@ class CategoryController extends Controller
             'parent_id'=>$request->parent_id,
             'slug'=> $request->name
             ]);
-            if (session('success_message')) {
-                Alert::success('Thành Công', session('success_message'));
-            }
-
-        return redirect()->route('categories.index')->withSuccessMessage('Bạn đã cập nhật thành công');
+            Alert::warning('Thành Công', 'Bạn đã cập nhật thành công!');
+        
+        return redirect()->route('categories.index');
     }
     public function getCategory($parentId){
         $data = $this->category->all();

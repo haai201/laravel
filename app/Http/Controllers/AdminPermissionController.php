@@ -33,6 +33,7 @@ class AdminPermissionController extends Controller
             ]);
          }
          DB::commit();
+         Alert::success('Thành Công', 'Bạn đã tạo mới thành công!');
          return redirect()->route('permission.create');
         } catch (\Exceptions $exception) {
             DB::rollBack();

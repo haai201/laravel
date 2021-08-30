@@ -26,10 +26,8 @@ class AdminUserController extends Controller
     public function index(){
         if (Auth::check()) {
             $users=$this->user->latest()->paginate(10);
-            if (session('success_message')) {
-                Alert::success('Thành Công', session('success_message'));
-            }
-            return view('admin.user.index',compact('users'))->withSuccessMessage('Bạn đã tạo mới thành công');
+            
+            return view('admin.user.index',compact('users'));
         }
        
     }
@@ -48,6 +46,7 @@ class AdminUserController extends Controller
         
         $user->roles()->attach($request->role_id);
         DB::commit();
+        Alert::success('Thành Công', 'Bạn đã tạo mới thành công!');
         return redirect()->route('users.index');
     }catch (\Exceptions $exception) {
         DB::rollBack();
@@ -72,7 +71,8 @@ class AdminUserController extends Controller
         $user= $this->user->find($id);
         $user->roles()->sync($request->role_id);
         DB::commit();
-        return redirect()->route('users.index')->withSuccessMessage('Bạn đã cập nhật thành công');
+        Alert::warning('Thành Công', 'Bạn đã cập nhật thành công!');
+        return redirect()->route('users.index');
     }catch (\Exceptions $exception) {
         DB::rollBack();
         Log::error(message: 'Messeage:' . $exception->getMessage() . '----Line :' . $exception->getLine());

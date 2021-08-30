@@ -13,16 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-Route::get('/clear-cache',function(){
-    $exitCode = Artisan::call('cache:clear');
-});
-
-Route::get('/admin', 'AdminController@loginAdmin');
-Route::post('/admin', 'AdminController@postloginAdmin');
-// Route::get('/home', function () {
-//     return view('home');
-// });
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');

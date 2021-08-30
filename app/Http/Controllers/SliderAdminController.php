@@ -23,10 +23,8 @@ class SliderAdminController extends Controller
     {
         if (Auth::check()) {
             $sliders=$this->slider->latest()->paginate(5);
-            if (session('success_message')) {
-                Alert::success('Thành Công', session('success_message'));
-            }
-        return view('admin.slider.index',compact('sliders'))->withSuccessMessage('Bạn đã tạo mới thành công');
+        
+        return view('admin.slider.index',compact('sliders'));
             // The user is logged in...
         }
         
@@ -48,6 +46,7 @@ class SliderAdminController extends Controller
             $dataInsert['image_path'] = $dataImageSlider['file_path'];
         }
         $this->slider->create($dataInsert);
+        Alert::success('Thành Công', 'Bạn đã tạo mới thành công!');
         return redirect()->route('slider.index');
     }catch(\Exceptions $exception){
         Log::error(message: 'Lỗi:' . $exception->getMessage() . '----Line :' . $exception->getLine());
@@ -69,7 +68,8 @@ class SliderAdminController extends Controller
             $dataUpdate['image_path'] = $dataImageSlider['file_path'];
         }
         $this->slider->find($id)->update($dataUpdate);
-        return redirect()->route('slider.index')->withSuccessMessage('Bạn đã cập nhật thành công');
+        Alert::warning('Thành Công', 'Bạn đã cập nhật thành công!');
+        return redirect()->route('slider.index');
     }catch(\Exceptions $exception){
         Log::error(message: 'Lỗi:' . $exception->getMessage() . '----Line :' . $exception->getLine());
     }

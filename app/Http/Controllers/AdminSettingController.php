@@ -21,10 +21,8 @@ class AdminSettingController extends Controller
         if (Auth::check()) {
             // The user is logged in...
             $settings = $this->setting->latest()->paginate(5);
-            if (session('success_message')) {
-                Alert::success('Thành Công', session('success_message'));
-            }
-        return view('admin.setting.index',compact('settings'))->withSuccessMessage('Bạn đã tạo mới thành công');
+        
+        return view('admin.setting.index',compact('settings'));
         }
         
     }
@@ -37,7 +35,8 @@ class AdminSettingController extends Controller
             'config_value' => $request->config_value,
             'type'=>$request->type
         ]);
-        return redirect()->route('settings.index')->withSuccessMessage('Bạn đã tạo mới thành công');
+        Alert::success('Thành Công', 'Bạn đã tạo mới thành công!');
+        return redirect()->route('settings.index');
     }
     public function edit($id){
         $setting=$this->setting->find($id);
@@ -48,7 +47,8 @@ class AdminSettingController extends Controller
             'config_key' => $request->config_key,
             'config_value'=> $request->config_value
         ]);
-        return redirect()->route('settings.index')->withSuccessMessage('Bạn đã cập nhật thành công');
+        Alert::warning('Thành Công', 'Bạn đã cập nhật thành công!');
+        return redirect()->route('settings.index');
     }
     public function delete($id){
        return $this->deleteModelTrait($id, $this->setting);
