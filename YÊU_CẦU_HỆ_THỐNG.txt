@@ -13,3 +13,5 @@ composer config platform.php 7.4.3
 
 
 color slider-bar:#5a6edf
+
+php artisan storage:link
