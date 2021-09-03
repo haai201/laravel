@@ -15,6 +15,8 @@ use App\Traits\StorageImageTrait;
 use App\Traits\DeleteModelTrait;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use App\Exports\ProductExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Storage;
 use DB;
 
@@ -35,6 +37,10 @@ class AdminProductController extends Controller
         $this->tag = $tag;
         $this->productTag = $productTag;
         $this->middleware('auth');
+    }
+    public function export() 
+    {
+        return Excel::download(new ProductExport, 'products.xlsx');
     }
     public function index()
     {

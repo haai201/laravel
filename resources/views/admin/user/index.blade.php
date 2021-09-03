@@ -20,8 +20,9 @@
       <div class="container-fluid">
         <div class="row">
         <div class="col-sm-12">
-          
+        <a href="{{route ('export')}}" class="btn btn-secondary float-right m-2">Export</a>
         <a href="{{route ('users.create')}}" class="btn btn-success float-right m-2">Add</a>
+        
         @include('sweetalert::alert')
         <table class="table">
   <thead>

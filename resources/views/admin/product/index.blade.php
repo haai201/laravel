@@ -20,6 +20,7 @@
       <div class="container-fluid">
         <div class="row">
         <div class="col-sm-12">
+        <a href="{{route ('export_product')}}" class="btn btn-secondary float-right m-2">Export</a>
         @can('product-add')
         <a href="{{route ('product.create')}}" class="btn btn-success float-right m-2">Thêm</a>@endcan
         @include('sweetalert::alert')

@@ -162,6 +162,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         // UniSharp\LaravelFilemanager\LaravelFilemanagerServiceProvider::class,
         // Intervention\Image\ImageServiceProvider::class,
 

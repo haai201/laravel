@@ -17,6 +17,7 @@
       <div class="container-fluid">
         <div class="row">
         <div class="col-sm-12">
+        <a href="{{route ('export_category')}}" class="btn btn-secondary float-right m-2">Export</a>
         @can('category-add')
         <a href="{{route ('categories.create')}}" class="btn btn-success float-right m-2">Thêm</a>
         @endcan
@@ -37,6 +38,7 @@
       <td>{{ $category -> name}}</td>
       <!-- <td>{{ $category -> slug}}</td> -->
       <td>
+        
         @can('category-edit')
         <a href="{{route ('categories.edit', ['id' => $category->id])}}"class="btn btn-warning">Edit</a>
         @endcan

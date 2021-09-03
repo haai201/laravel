@@ -7,6 +7,8 @@ use App\Category;
 use App\Components\Recusive;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\DeleteModelTrait;
+use App\Exports\CategoryExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Alert;
 use DB;
 
@@ -26,6 +28,10 @@ class CategoryController extends Controller
         return view('admin.category.add', compact('htmlOption'));
 
      }
+     public function export() 
+    {
+        return Excel::download(new CategoryExport, 'category.xlsx');
+    }
 
     public function index(){
         if (Auth::check()) {

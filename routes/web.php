@@ -343,7 +343,11 @@ Route::prefix('admin')->group(function () {
         ]); 
        
     });
+    
 });
+Route::get('users/export/', 'UsersController@export')->name('export');
+Route::get('categories/export/', 'CategoryController@export')->name('export_category');
+Route::get('product/export/', 'AdminProductController@export')->name('export_product');
 
 
 
