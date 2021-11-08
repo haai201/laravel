@@ -8,7 +8,7 @@
         <a href="http://127.0.0.1:8000/home" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="{{route('shop.index')}}" class="nav-link">Shop</a>
       </li>
     </ul>
 

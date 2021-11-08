@@ -49,11 +49,10 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
           <li class="nav-item">
-            <a href=" {{  route('home')}}" class="nav-link">
-              <i class="nav-icon fas fa-home"></i>
-              <p>
-                Trang chủ
-            
+            <a href=" {{  route('shop.index')}}" class="nav-link">
+            <i class="fas fa-shopping-cart"></i>
+              <p> 
+                Shop
               </p>
             </a>
           </li>
@@ -75,6 +74,7 @@
               </p>
             </a>
           </li>
+          
           <li class="nav-item">
             <a href=" {{  route('product.index')}}" class="nav-link">
               <i class="nav-icon fab fa-app-store"></i>

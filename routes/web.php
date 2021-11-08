@@ -20,7 +20,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+// Router::get('/shop/add-to-cart/{id}', 'ShopController@addToCart')->name('addToCart');
 Route::prefix('admin')->group(function () {
     //Danh mục sản phẩm
     Route::prefix('categories')->group(function () {
@@ -64,6 +64,41 @@ Route::prefix('admin')->group(function () {
             'middleware'=>'can:category-delete'
             
         ]); 
+    });
+    //Shop
+    // Router::get('/shop/add-to-cart/{id}', 'ShopController@addToCart')->name('addToCart');
+    Route::prefix('shop')->group(function () {
+        Route::get('/index', 
+        [
+            'as' =>'shop.index',
+            'uses'=>'ShopController@index',
+            
+        ]); 
+        Route::get('/add-to-cart/{id}', 
+        [
+            'as' =>'shop.addToCart',
+            'uses'=>'ShopController@addToCart',
+            
+        ]);
+        Route::get('/show-cart', 
+        [
+            'as' =>'shop.showCart',
+            'uses'=>'ShopController@showCart',
+            
+        ]); 
+        Route::get('/update-cart', 
+        [
+            'as' =>'shop.updateCart',
+            'uses'=>'ShopController@updateCart',
+            
+        ]); 
+        Route::get('/delete-cart', 
+        [
+            'as' =>'shop.deleteCart',
+            'uses'=>'ShopController@deleteCart',
+            
+        ]); 
+        
     });
     //Menu
     Route::prefix('menus')->group(function () {
