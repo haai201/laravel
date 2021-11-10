@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="{{asset('admins/slider/add/add.css')}}">
 @endsection
 @section('js')
-<script src="{{asset('admins/slider/index/list.js')}}"></script>
+<script src="{{asset('admins/admin/index/list.js')}}"></script>
 <script src="{{asset('vendors/sweetalert2/sweetalert2@11.js')}}"></script>
 @endsection
 @section('content')
@@ -20,9 +20,9 @@
       <div class="container-fluid">
         <div class="row">
         <div class="col-sm-12">
-          
-        <a href="{{route ('slider.create')}}" class="btn btn-success float-right m-2">Add</a>
-      
+        @can('slider-add')
+        <a href="{{route ('slider.create')}}" class="btn btn-success float-right m-2">Add</a>@endcan
+        @include('sweetalert::alert')
         <table class="table">
   <thead>
 
@@ -44,8 +44,10 @@
         <img class="product_image" src="{{ $slider ->image_path}}">
         </td>
       <td>
-        <a href="{{ route('slider.edit', ['id' => $slider->id])}}"class="btn btn-warning">Edit</a>
-          <a href="" data-url="{{route('slider.delete',['id' => $slider->id])}}" class="btn btn-danger action_delete">Delete</a>
+      @can('slider-edit')
+        <a href="{{ route('slider.edit', ['id' => $slider->id])}}"class="btn btn-warning">Edit</a>@endcan
+        @can('slider-delete')
+          <a href="" data-url="{{route('slider.delete',['id' => $slider->id])}}" class="btn btn-danger action_delete">Delete</a>@endcan
       </td>
     </tr>
    @endforeach

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SliderAddRequest;
 use App\Traits\StorageImageTrait;
 use App\Traits\DeleteModelTrait;
+use Illuminate\Support\Facades\Auth;
+Use Alert;
 use App\Slider;
 
 class SliderAdminController extends Controller
@@ -15,11 +17,17 @@ class SliderAdminController extends Controller
     public function __construct(Slider $slider)
     {
         $this->slider = $slider;
+        $this->middleware('auth');
     }
     public function index()
     {
-        $sliders=$this->slider->latest()->paginate(5);
+        if (Auth::check()) {
+            $sliders=$this->slider->latest()->paginate(5);
+        
         return view('admin.slider.index',compact('sliders'));
+            // The user is logged in...
+        }
+        
     }
     public function create()
     {
@@ -38,6 +46,7 @@ class SliderAdminController extends Controller
             $dataInsert['image_path'] = $dataImageSlider['file_path'];
         }
         $this->slider->create($dataInsert);
+        Alert::success('Thành Công', 'Bạn đã tạo mới thành công!');
         return redirect()->route('slider.index');
     }catch(\Exceptions $exception){
         Log::error(message: 'Lỗi:' . $exception->getMessage() . '----Line :' . $exception->getLine());
@@ -59,6 +68,7 @@ class SliderAdminController extends Controller
             $dataUpdate['image_path'] = $dataImageSlider['file_path'];
         }
         $this->slider->find($id)->update($dataUpdate);
+        Alert::warning('Thành Công', 'Bạn đã cập nhật thành công!');
         return redirect()->route('slider.index');
     }catch(\Exceptions $exception){
         Log::error(message: 'Lỗi:' . $exception->getMessage() . '----Line :' . $exception->getLine());

@@ -8,11 +8,15 @@ use App\ProductTag;
 use App\Http\Requests\ProductAddRequest;
 use App\Tag;
 use App\ProductImage;
+use Alert;
 use App\Components\Recusive;
 use Illuminate\Http\Request;
 use App\Traits\StorageImageTrait;
 use App\Traits\DeleteModelTrait;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use App\Exports\ProductExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Storage;
 use DB;
 
@@ -32,11 +36,22 @@ class AdminProductController extends Controller
         $this->productImage = $productImage;
         $this->tag = $tag;
         $this->productTag = $productTag;
+        $this->middleware('auth');
+    }
+    public function export() 
+    {
+        return Excel::download(new ProductExport, 'products.xlsx');
     }
     public function index()
     {
-        $products = $this->product->latest()->paginate(5);
+        if (Auth::check()) {
+            // The user is logged in...
+            $products = $this->product->latest()->paginate(5);
+        
+    
         return view('admin.product.index', compact('products'));
+        }
+        
     }
     public function create()
     {
@@ -89,6 +104,7 @@ class AdminProductController extends Controller
             }
             $product->tags()->attach($tagIds);
             DB::commit();
+            Alert::success('Thành Công', 'Bạn đã tạo mới thành công!');
             return redirect()->route('product.index');
         } catch (\Exceptions $exception) {
             DB::rollBack();
@@ -133,6 +149,7 @@ class AdminProductController extends Controller
                 }
     
                 //Insert tags vào product
+                $tagIds =[];
                 if (!empty($request->tags)) {
                     //Insert tags
                     foreach ($request->tags as $tagItem) {
@@ -142,6 +159,7 @@ class AdminProductController extends Controller
                 }
                 $product->tags()->attach($tagIds);
                 DB::commit();
+                Alert::warning('Thành Công', 'Bạn đã cập nhật thành công!');
                 return redirect()->route('product.index');
             } catch (\Exceptions $exception) {
                 DB::rollBack();

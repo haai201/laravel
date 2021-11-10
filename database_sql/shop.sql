@@ -1,1 +1,0 @@
-ALTER TABLE sliders AUTO_INCREMENT = 1
