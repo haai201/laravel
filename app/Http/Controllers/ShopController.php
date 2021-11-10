@@ -68,7 +68,7 @@ class ShopController extends Controller
             $carts = session()->get('cart');
             $cartComponent =  view('admin/shop/components/cart_component', compact('carts'))->render();
             return response()->json(['cart_component'=> $cartComponent, 'code' => 200], status: 200);
-
+            
         }
     }
 }
